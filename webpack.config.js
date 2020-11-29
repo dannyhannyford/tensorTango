@@ -24,7 +24,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.css'],
   },
-  watch: true,
+  watch: false,
   watchOptions: {
     aggregateTimeout: 600,
     poll: 1000,
