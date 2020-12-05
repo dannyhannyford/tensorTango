@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as poseNet from '@tensorflow-models/posenet';
 import Webcam from 'react-webcam';
@@ -7,6 +7,7 @@ import { drawKeypoints, drawSkeleton } from '../utilities';
 const App = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const [backup, setBackup] = useState(false);
 
   const runPosenet = async () => {
     const net = await poseNet.load({
@@ -32,6 +33,11 @@ const App = () => {
       // detections
       const pose = await net.estimateSinglePose(video);
       console.log('detect pose: ', pose);
+      if (pose.score < .6) {
+        notifyBackup(true);
+      } else {
+        notifyBackup(false);
+      }
 
       drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
     }
@@ -46,10 +52,15 @@ const App = () => {
     drawSkeleton(pose['keypoints'], 0.5, ctx);
   };
 
+  const notifyBackup = (bool) => {
+    setBackup(bool);
+  }
+
   runPosenet();
 
   return (
     <div>
+      {backup && <div>please back up</div>}
       <Webcam
         ref={webcamRef}
         style={{
