@@ -12,12 +12,12 @@ const App = () => {
     const net = await poseNet.load({
       inputResolution: { width: 640, height: 480 },
       // scale: smaller is faster/less accurate
-      scale: 0.1,
+      scale: 0.5,
     });
 
     setInterval(() => {
       detect(net);
-    }, 10000);
+    }, 1000);
   };
 
   const detect = async (net) => {
