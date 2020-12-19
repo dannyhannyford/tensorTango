@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/dannyhannyford/tensorTango#readme",
   "dependencies": {
+    "@auth0/auth0-react": "^1.2.0",
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs": "^2.7.0",
     "body-parser": "^1.19.0",

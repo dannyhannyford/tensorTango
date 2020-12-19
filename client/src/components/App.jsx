@@ -3,6 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as poseNet from '@tensorflow-models/posenet';
 import Webcam from 'react-webcam';
 import { drawKeypoints, drawSkeleton } from '../utilities';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
   const webcamRef = useRef(null);
