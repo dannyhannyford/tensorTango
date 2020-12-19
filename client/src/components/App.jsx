@@ -3,7 +3,9 @@ import * as tf from '@tensorflow/tfjs';
 import * as poseNet from '@tensorflow-models/posenet';
 import Webcam from 'react-webcam';
 import { drawKeypoints, drawSkeleton } from '../utilities';
-import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import Profile from './Profile';
 
 const App = () => {
   const webcamRef = useRef(null);
@@ -34,7 +36,7 @@ const App = () => {
       // detections
       const pose = await net.estimateSinglePose(video);
       console.log('detect pose: ', pose);
-      if (pose.score < .6) {
+      if (pose.score < 0.6) {
         notifyBackup(true);
       } else {
         notifyBackup(false);
@@ -55,12 +57,15 @@ const App = () => {
 
   const notifyBackup = (bool) => {
     setBackup(bool);
-  }
+  };
 
   runPosenet();
 
   return (
     <div>
+      <LoginButton />
+      <LogoutButton />
+      <Profile />
       {backup && <div>please back up</div>}
       <Webcam
         ref={webcamRef}
